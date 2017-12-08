@@ -1,4 +1,4 @@
-# Check Magento Web Service
+# Check Magento Web Services
 
 A simple PHP script to check Magento Web Service in order to connect to Qapla'.
 
