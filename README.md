@@ -17,7 +17,7 @@ Just change those two variables with you Qapla' channel API key and your Magento
 ```php
 $apiKey = '{Qapla\' API Key}';
 
-$magentoURL = '{Mangeto url}'.'/index.php/api/v2_soap/?wsdl';
+$magentoURL = '{Magento url}'.'/index.php/api/v2_soap/?wsdl';
 ```
 
 ## License
