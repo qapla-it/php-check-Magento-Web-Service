@@ -1,9 +1,8 @@
 <?php
-$apiKey = '{Qapla' API Key}';
-$magentoURL = {Mangeto url}.'/index.php/api/v2_soap/?wsdl';
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// SOAP
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+$apiKey = '{Qapla\' API Key}';
+$magentoURL = '{Mangeto url}'.'/index.php/api/v2_soap/?wsdl';
+
+/** Soap connection */
 try{
     $proxy = new SoapClient($magentoURL);
 }
@@ -21,10 +20,10 @@ catch (Exception $e){
 }
 echo '&#10003; Login OK<br/>';
 
-/** Order List */
+/** salesOrderList */
 $complexFilter = [
     'complex_filter' => [
-        ['key' => 'updated_at', 'value' => array['key' => 'from','value' => date('Y-m-d').' 00:00:00']]
+        ['key' => 'updated_at', 'value' => ['key' => 'from','value' => date('Y-m-d').' 00:00:00'],],
     ]];
     
 try{
@@ -46,30 +45,28 @@ else:
     foreach($result as $order):
 
         try{
-            $ordineInfo = $proxy->salesOrderInfo($sessionId, $order->increment_id);
+            $orderInfo = $proxy->salesOrderInfo($sessionId, $order->increment_id);
         }
         catch (Exception $e){
             exit('Cannot get the order.'.$e->__toString());
 		  }
 
-        echo '<tr><td width="50">'.sprintf("%03s",++$righe).'</td><td width="250">'.$ordine->increment_id.'</td><td width="200">'.$ordine->updated_at.'</td><td width="200">'.$ordine->status.'</td></tr>';
+        echo '<tr><td width="50">'.sprintf("%03s",++$rows).'</td><td width="250">'.$order->increment_id.'</td><td width="200">'.$order->updated_at.'</td><td width="200">'.$order->status.'</td></tr>';
 
-        $orderID = $ordine->order_id;
+        $orderID = $order->order_id;
 
     endforeach;
 
     echo '</table>';
 
-    echo '<h4>Getting order: '.$ordine->increment_id.', id: '.$orderID.'</h4>';
+    echo '<h4>Getting order: '.$order->increment_id.', id: '.$orderID.'</h4>';
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////
-    // Order List
-    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /** salesOrderList */
     $filter = array('filter' => array(array('key' => 'order_id', 'value' => $orderID)));
     try{
-        $ordine = $proxy->salesOrderList($sessionId, $filter);
+        $order = $proxy->salesOrderList($sessionId, $filter);
     }
     catch(Exception $e) {
-        exit('Non riesco ad accedere all\'ordine.'.$e->__toString());
+        exit('Cannot get the order.'.$e->__toString());
     }
 endif;
