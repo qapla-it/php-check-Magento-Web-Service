@@ -12,7 +12,7 @@ git clone https://github.com/qapla-it/php-check-Magento-Web-Service.git
 
 ## Example
 
-Just change those two variables with you Qapla' channel API key and your Magento site url.
+Just change those two variables with your Qapla' channel API key and your Magento site url.
 
 ```php
 $apiKey = '{Qapla\' API Key}';
